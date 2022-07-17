@@ -1,0 +1,26 @@
+How to represent shapes vs transformations?
+
+            pure          transformed
+point       (origin)      (x,y)
+circle      (unit circle) (x,y,r)
+line        (x-axis)      (ax,ay,bx,by)
+ray         --
+segment     --
+half-plane  --
+box         (unit-square) (x,y,w,h)
+
+
+BOX - Axis Alignment?
+CIRCLE + BOX - Anisometric Scaling?
+
+SDF does not work with anisometric scaling
+
+
+
+
+// triangulation
+
+// collisions
+// voronoi diagram
+
+make convolution handle duplicate points

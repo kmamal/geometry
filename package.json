@@ -8,8 +8,55 @@
   },
   "main": "src/index.js",
   "scripts": {
-    "test": "./scripts/run-tests.sh",
     "update-exports": "./scripts/update-exports.sh"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@kmamal/testing": "^0.0.20"
+  },
+  "dependencies": {
+    "@kmamal/util": "^0.0.92"
+  },
+  "exports": {
+    "./closest-pair": "./src/closest-pair.js",
+    "./polygon/normal": "./src/polygon/normal.js",
+    "./polygon/is-simple": "./src/polygon/is-simple.js",
+    "./polygon/_make-convex": "./src/polygon/_make-convex.js",
+    "./polygon/triangulation/optimal": "./src/polygon/triangulation/optimal.js",
+    "./polygon/triangulation/ear-clipping": "./src/polygon/triangulation/ear-clipping.js",
+    "./polygon/convolution": "./src/polygon/convolution.js",
+    "./polygon/is-convex": "./src/polygon/is-convex.js",
+    "./polygon/point": "./src/polygon/point.js",
+    "./polygon/is-equal": "./src/polygon/is-equal.js",
+    "./polygon/centroid": "./src/polygon/centroid.js",
+    "./polygon/area": "./src/polygon/area.js",
+    "./polygon/make-simple": "./src/polygon/make-simple.js",
+    "./polygon/offset": "./src/polygon/offset.js",
+    "./polygon/reverse": "./src/polygon/reverse.js",
+    "./polygon/winding-number": "./src/polygon/winding-number.js",
+    "./polygon/bounding-box": "./src/polygon/bounding-box.js",
+    "./polygon/is-interior-edge": "./src/polygon/is-interior-edge.js",
+    "./polygon/minkowski": "./src/polygon/minkowski.js",
+    "./convex-hull/monotone-chain": "./src/convex-hull/monotone-chain.js",
+    "./convex-hull/quickhull": "./src/convex-hull/quickhull.js",
+    "./convex-hull/graham-scan": "./src/convex-hull/graham-scan.js",
+    "./convex-hull/incremental": "./src/convex-hull/incremental.js",
+    "./convex-hull/jarvis-march": "./src/convex-hull/jarvis-march.js",
+    "./closest": "./src/closest.js",
+    "./_delaunay": "./src/_delaunay.js",
+    "./sdf/from-segment": "./src/sdf/from-segment.js",
+    "./sdf/from-circle": "./src/sdf/from-circle.js",
+    "./sdf": "./src/sdf/index.js",
+    "./sdf/from-polygon": "./src/sdf/from-polygon.js",
+    "./sdf/from-point": "./src/sdf/from-point.js",
+    "./sdf/from-convex": "./src/sdf/from-convex.js",
+    "./sdf/from-line": "./src/sdf/from-line.js",
+    "./sdf/from-box": "./src/sdf/from-box.js",
+    "./sdf/from-halfplane": "./src/sdf/from-halfplane.js",
+    "./matrices/combined": "./src/matrices/combined.js",
+    "./matrices/translation": "./src/matrices/translation.js",
+    "./matrices/scaling": "./src/matrices/scaling.js",
+    "./matrices/rotation": "./src/matrices/rotation.js",
+    "./includes": "./src/includes.js"
+  }
 }
