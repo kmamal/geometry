@@ -1,0 +1,15 @@
+{
+  "version": "0.0.0",
+  "name": "@kmamal/geometry",
+  "description": "geometry",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kmamal/geometry.git"
+  },
+  "main": "src/index.js",
+  "scripts": {
+    "test": "./scripts/run-tests.sh",
+    "update-exports": "./scripts/update-exports.sh"
+  },
+  "license": "MIT"
+}
