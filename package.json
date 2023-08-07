@@ -6,22 +6,24 @@
     "type": "git",
     "url": "git@github.com:kmamal/geometry.git"
   },
-  "main": "src/index.js",
-  "scripts": {
-    "update-exports": "./scripts/update-exports.sh"
-  },
   "license": "MIT",
-  "devDependencies": {
-    "@kmamal/testing": "^0.0.20"
+  "scripts": {
+    "test": "npx @kmamal/testing",
+    "update-exports": "node ./scripts/update-exports.mjs"
   },
   "dependencies": {
-    "@kmamal/util": "^0.0.92"
+    "@kmamal/heap": "^0.0.7",
+    "@kmamal/linear-algebra": "^0.0.5",
+    "@kmamal/util": "^0.1.13"
+  },
+  "devDependencies": {
+    "@kmamal/numbers": "^0.0.4",
+    "@kmamal/testing": "^0.0.24"
   },
   "exports": {
     "./closest-pair": "./src/closest-pair.js",
     "./polygon/normal": "./src/polygon/normal.js",
     "./polygon/is-simple": "./src/polygon/is-simple.js",
-    "./polygon/_make-convex": "./src/polygon/_make-convex.js",
     "./polygon/triangulation/optimal": "./src/polygon/triangulation/optimal.js",
     "./polygon/triangulation/ear-clipping": "./src/polygon/triangulation/ear-clipping.js",
     "./polygon/convolution": "./src/polygon/convolution.js",
@@ -43,7 +45,6 @@
     "./convex-hull/incremental": "./src/convex-hull/incremental.js",
     "./convex-hull/jarvis-march": "./src/convex-hull/jarvis-march.js",
     "./closest": "./src/closest.js",
-    "./_delaunay": "./src/_delaunay.js",
     "./sdf/from-segment": "./src/sdf/from-segment.js",
     "./sdf/from-circle": "./src/sdf/from-circle.js",
     "./sdf": "./src/sdf/index.js",

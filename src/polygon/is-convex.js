@@ -5,7 +5,7 @@ const { point } = require('./point')
 const defineFor = memoize((Domain) => {
 	const { gt, fromNumber } = Domain
 	const ZERO = fromNumber(0)
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 
 	const isConvex = (polygon) => {
 		const { length } = polygon

@@ -1,16 +1,21 @@
 const { memoize } = require('@kmamal/util/function/memoize')
 const { point } = require('./point')
-const { heapifyWith, popWith } = require('@kmamal/util/array/heap')
+const { heapifyWith, popWith } = require('@kmamal/heap')
 
 const defineFor = memoize((Domain) => {
 	const { sub, eq, lte, fromNumber } = Domain
 	const ZERO = fromNumber(0)
 	const SDF = require('../sdf').defineFor(Domain)
 
+	const fnCmpEndpoints = (u, v) => {
+		const dy = sub(v.p[1], u.p[1])
+		if (!eq(dy, ZERO)) { return dy }
+		return sub(u.p[0], v.p[0])
+	}
+
 	const isSimple = (polygon) => {
 		const { length } = polygon
 		const endpoints = new Array(length)
-
 		{
 			let a = point(polygon, length - 2)
 			let b
@@ -25,23 +30,16 @@ const defineFor = memoize((Domain) => {
 				a = b
 			}
 		}
+		heapifyWith(endpoints, fnCmpEndpoints)
 
-		const fn = (u, v) => {
-			const dy = sub(v.p[1], u.p[1])
-			if (!eq(dy, ZERO)) { return dy }
-			return sub(u.p[0], v.p[0])
-		}
-		heapifyWith(endpoints, fn)
-
+		// Scanline
 		const activeEdges = new Map()
 		while (endpoints.length > 0) {
-			const endpoint = popWith(endpoints, fn)
+			const endpoint = popWith(endpoints, fnCmpEndpoints)
 			const { edgeKey } = endpoint
 
-			if (activeEdges.has(edgeKey)) {
-				activeEdges.delete(edgeKey)
-				continue
-			}
+			const hadEdge = activeEdges.delete(edgeKey)
+			if (hadEdge) { continue }
 
 			const { a: a1, b: b1 } = endpoint
 			for (const [ otherKey, other ] of activeEdges.entries()) {

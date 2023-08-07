@@ -1,7 +1,7 @@
 const { memoize } = require('@kmamal/util/function/memoize')
 
 const defineFor = memoize((Domain) => {
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const Distance = require('./distance').defineFor(Domain)
 
 	const point2circle = (point, r) => V2.scale(point, r)

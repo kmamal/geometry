@@ -9,7 +9,7 @@ const BREAKOFF = 4
 const defineFor = memoize((Domain) => {
 	const { add, sub, mul, div, sqrt, lt, lte, fromNumber } = Domain
 	const TWO = fromNumber(2)
-	const V2 = require('../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 
 	const __recurse = (buffers, sortedX, sortedY, start, end, best) => {
 		const length = end - start

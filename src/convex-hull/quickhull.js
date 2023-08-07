@@ -5,7 +5,7 @@ const { swap } = require('@kmamal/util/array/swap')
 const defineFor = memoize((Domain) => {
 	const { lt, gt, PInfinity, NInfinity, fromNumber } = Domain
 	const ZERO = fromNumber(0)
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const SDF = require('../sdf').defineFor(Domain)
 
 	const __quickhullConvexHull = (arr, _start, _end) => {

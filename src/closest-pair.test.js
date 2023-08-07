@@ -1,7 +1,7 @@
 const { test } = require('@kmamal/testing')
-const N = require('../../domains/number')
+const N = require('@kmamal/numbers/js')
 const { closestPair } = require('./closest-pair').defineFor(N)
-const V2 = require('../../linear-algebra/vec2').defineFor(N)
+const V2 = require('@kmamal/linear-algebra/vec2').defineFor(N)
 const { map } = require('@kmamal/util/array/map')
 
 const M = 100

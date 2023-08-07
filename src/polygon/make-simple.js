@@ -1,15 +1,21 @@
 const { memoize } = require('@kmamal/util/function/memoize')
-const { withHooks } = require('@kmamal/util/map/with-hooks')
 const { point: getPoint } = require('./point')
 
 const defineFor = memoize((Domain) => {
 	const { sub, div, eq, gt, lt, fromNumber, toNumber, toString } = Domain
 	const ZERO = fromNumber(0)
 	const ONE = fromNumber(1)
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 
-	const makePointKey = (p) => `${toString(p[0])}_${toString(p[1])}`
-	const makePoint = (_, p) => ({ p, edges: new Set() })
+	const getPointFromMap = (map, p) => {
+		const key = `${toString(p[0])}_${toString(p[1])}`
+		let value = map.get(key)
+		if (value === undefined) {
+			value = { p, edges: new Set() }
+			map.set(key, value)
+		}
+		return value
+	}
 
 	const { heapifyWith, popWith, addWith } = require('@kmamal/util/array/heap')
 	const fnCmpEndpoints = (endpoint1, endpoint2) => {
@@ -65,7 +71,7 @@ const defineFor = memoize((Domain) => {
 		return splinter
 	}
 
-	const { sortByPure } = require('@kmamal/util/array/sort')
+	const { sortBy } = require('@kmamal/util/array/sort')
 	const getAngle = ({ angle }) => angle
 
 	const makeSimple = (polygon) => {
@@ -73,10 +79,7 @@ const defineFor = memoize((Domain) => {
 		if (length <= 6) { return [ polygon ] }
 
 		// Polygon structs
-		const points = withHooks({
-			key: makePointKey,
-			factory: makePoint,
-		})
+		const points = new Map()
 		const edges = new Set()
 
 		// Scanline algorithm
@@ -89,12 +92,12 @@ const defineFor = memoize((Domain) => {
 		// Initialize
 		{
 			let a = getPoint(polygon, length - 2)
-			let alpha = points.get(a)
+			let alpha = getPointFromMap(points, a)
 
 			let index = 0
 			while (index < length) {
 				const b = getPoint(polygon, index)
-				const beta = points.get(b)
+				const beta = getPointFromMap(points, b)
 				const edge = { alpha, beta }
 				edges.add(edge)
 				alpha.edges.add(edge)
@@ -158,7 +161,7 @@ const defineFor = memoize((Domain) => {
 					if (!intersection) { continue }
 
 					const { q, t1, t2 } = intersection
-					const point = points.get(q)
+					const point = getPointFromMap(points, q)
 
 					const shouldSplit1 = point !== alpha1 && point !== beta1
 					const shouldSplit2 = point !== alpha2 && point !== beta2
@@ -226,7 +229,7 @@ const defineFor = memoize((Domain) => {
 						: V2.sub(alpha.p, beta.p)
 					edge.angle = -toNumber(V2.angle(e))
 				}
-				sortByPure.$$$(arr, getAngle)
+				sortBy.$$$(arr, getAngle)
 			}
 
 			for (let i = 0; i < arr.length; i++) {

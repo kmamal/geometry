@@ -1,5 +1,5 @@
 const { test } = require('@kmamal/testing')
-const N = require('../../domains/number')
+const N = require('@kmamal/numbers/js')
 const I = require('./includes').defineFor(N)
 
 test("geometry.distance.pointInPoint", (t) => {

@@ -3,7 +3,7 @@ const { __min } = require('@kmamal/util/array/min')
 
 const defineFor = memoize((Domain) => {
 	const { eq, gt, lte } = Domain
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 
 	const __jarvisMarchConvexHull = (dst, dstStart, src, srcStart, srcEnd) => {
 		const a = src[__min(src, srcStart, srcEnd, ([ x ]) => x).index]

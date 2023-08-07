@@ -5,7 +5,7 @@ const defineFor = memoize((Domain) => {
 	const { neg, sub, gt, fromNumber } = Domain
 	const ZERO = fromNumber(0)
 	const THIRD = fromNumber(1 / 3)
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const ORIGIN = V2.fromNumbers(0, 0)
 
 	const edgeNormalTo = (dst, polygon, offset) => {

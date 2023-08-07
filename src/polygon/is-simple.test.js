@@ -1,5 +1,5 @@
 const { test } = require('@kmamal/testing')
-const N = require('../../../domains/number')
+const N = require('@kmamal/numbers/js')
 const { isSimple } = require('./is-simple').defineFor(N)
 
 test("geometry.polygon.isSimple", (t) => {

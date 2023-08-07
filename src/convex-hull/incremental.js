@@ -5,7 +5,7 @@ const { clone } = require('@kmamal/util/array/clone')
 const defineFor = memoize((Domain) => {
 	const { eq, gt, lt, gte, lte, fromNumber } = Domain
 	const ZERO = fromNumber(0)
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 
 	const __incrementConvexHull = (hull, hullStart, hullEnd, point) => {
 		let start = null

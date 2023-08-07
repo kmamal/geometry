@@ -1,5 +1,5 @@
 const { test } = require('@kmamal/testing')
-const N = require('../../../domains/number')
+const N = require('@kmamal/numbers/js')
 const { isConvex } = require('./is-convex').defineFor(N)
 
 test("geometry.polygon.isConvex", (t) => {

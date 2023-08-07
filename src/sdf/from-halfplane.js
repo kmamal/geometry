@@ -3,7 +3,7 @@ const { point } = require('../polygon/point')
 
 
 const defineFor = memoize((Domain) => {
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const Point = require('./from-point').defineFor(Domain)
 
 	const halfplane2halfplane = (a1, b1, a2, b2) => {

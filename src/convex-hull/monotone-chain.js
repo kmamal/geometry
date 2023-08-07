@@ -6,7 +6,7 @@ const { sortBy } = require('@kmamal/util/array/sort')
 const defineFor = memoize((Domain) => {
 	const { lt, fromNumber } = Domain
 	const ZERO = fromNumber(0)
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const V2_ZERO = V2.fromNumbers(0, 0)
 
 	const monotoneChainConvexHull = (_points) => {

@@ -4,7 +4,7 @@ const { point } = require('../point')
 
 const defineFor = memoize((Domain) => {
 	const { add, lt, PInfinity } = Domain
-	const V2 = require('../../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const { isInteriorEdge } = require('../is-interior-edge').defineFor(Domain)
 
 	const optimalTriangulation = (polygon) => {

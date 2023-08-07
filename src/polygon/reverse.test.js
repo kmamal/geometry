@@ -1,6 +1,6 @@
 const { test } = require('@kmamal/testing')
 const { defineFor } = require('./reverse')
-const N = require('../../../domains/number')
+const N = require('@kmamal/numbers/js')
 const { reverse } = defineFor(N)
 
 test("geometry.polygon.reverse", (t) => {

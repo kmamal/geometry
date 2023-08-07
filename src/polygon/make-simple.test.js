@@ -1,5 +1,5 @@
 const { test } = require('@kmamal/testing')
-const N = require('../../../domains/number')
+const N = require('@kmamal/numbers/js')
 const { makeSimple } = require('./make-simple').defineFor(N)
 const { isEqual } = require('./is-equal').defineFor(N)
 

@@ -22,6 +22,6 @@ const reverse = (polygon) => {
 
 reverse.$$$ = reverse$$$
 
-const defineFor = () => ({ reverse })
+const defineFor = () => ({ reverse }) // TODO: weird
 
 module.exports = { defineFor }

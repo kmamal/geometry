@@ -6,7 +6,7 @@ const defineFor = memoize((Domain) => {
 	const ZERO = fromNumber(0)
 	const ONE = fromNumber(1)
 	const MINUS_ONE = fromNumber(-1)
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 
 	const convolution = (a, b) => {
 		const { length: aLength } = a

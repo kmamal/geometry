@@ -1,5 +1,5 @@
 const { test } = require('@kmamal/testing')
-const N = require('../../../domains/number')
+const N = require('@kmamal/numbers/js')
 const { boundingBox } = require('./bounding-box').defineFor(N)
 
 test("geometry.polygon.boundingBox", (t) => {

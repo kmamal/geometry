@@ -4,7 +4,7 @@ const { __point, point } = require('./point')
 const defineFor = memoize((Domain) => {
 	const { abs, add, div, cos, fromNumber } = Domain
 	const TWO = fromNumber(2)
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const { edgeNormal, pointNormalFromEdgeNormals } = require('./normal').defineFor(Domain)
 
 	const offsetPoints$$$ = (polygon, amount) => {

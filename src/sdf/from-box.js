@@ -1,7 +1,7 @@
 const { memoize } = require('@kmamal/util/function/memoize')
 
 const defineFor = memoize((Domain) => {
-	const V2 = require('../../../linear-algebra/vec2').defineFor(Domain)
+	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const Convex = require('./from-convex').defineFor(Domain)
 
 	const box2box = (w1, h1, c, w2, h2) => {

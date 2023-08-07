@@ -1,5 +1,5 @@
 // const { test } = require('@kmamal/testing')
-// const N = require('../../../domains/number')
+// const N = require('@kmamal/numbers/js')
 // const C = require('./closest').defineFor(N)
 
 // const vec2Equal = (t, actual, expected, tollerance = 1e-5) => t.ok(

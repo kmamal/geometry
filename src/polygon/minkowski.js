@@ -1,6 +1,6 @@
 const { memoize } = require('@kmamal/util/function/memoize')
 const { map } = require('@kmamal/util/array/map')
-const { sortByPure } = require('@kmamal/util/array/sort')
+const { sortBy } = require('@kmamal/util/array/sort')
 
 const defineFor = memoize((Domain) => {
 	const { neg } = Domain
@@ -20,7 +20,7 @@ const defineFor = memoize((Domain) => {
 	const sumPolygonPolygon = (a, b) => {
 		const complex = convolution(a, b)
 		const polygons = makeSimple(complex)
-		sortByPure(polygons, (p) => neg(area(p)))
+		sortBy(polygons, (p) => neg(area(p))) // TODO $$$ ?
 		return polygons[0]
 	}
 
