@@ -4,51 +4,70 @@ const { __map } = require('@kmamal/util/array/map')
 const { __sort } = require('@kmamal/util/array/sort')
 const { clone } = require('@kmamal/util/array/clone')
 
+const ab = new Array(2)
+const bc = new Array(2)
+
+const getPoint = (x) => x.point
+
+
 const defineFor = memoize((Domain) => {
-	const { neg, sub, div, eq, lt, isNaN, fromNumber, NInfinity } = Domain
+	const { sub, div, eq, lt, isNaN, fromNumber } = Domain
 	const ZERO = fromNumber(0)
 	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const ORIGIN = V2.fromNumbers(0, 0)
 
-	const _getSlope = (ax, ay, bx, by) => {
-		const slope = div(sub(by, ay), sub(bx, ax))
-		return isNaN(slope) ? slope : neg(slope)
+	const fnCmpPoints = (a, b) => {
+		const dx = a[0] - b[0]
+		if (dx !== 0) { return dx }
+		const dy = a[1] - b[1]
+		return dy
 	}
 
-	const __grahamScanConvexHull = (arr, start, end) => {
-		const a = arr[__min(arr, start, end, ([ x ]) => x).index]
+	const fnCmpEntries = (v, u) => {
+		if (isNaN(v.slope)) { return -1 }
+		if (isNaN(u.slope)) { return 1 }
+		return eq(v.slope, u.slope)
+			? sub(v.dist, u.dist)
+			: sub(v.slope, u.slope)
+	}
 
-		const [ ax, ay ] = a
-		__map(arr, start, arr, start, end, (point) => ({
-			point,
-			value: _getSlope(ax, ay, point[0], point[1]),
-		}))
-		__sort(arr, start, end, (v, u) => {
-			if (isNaN(v.value)) { return -1 }
-			if (isNaN(u.value)) { return 1 }
-			if (eq(v.value, u.value)) { return -1 }
-			return sub(v.value, u.value)
+
+	const __grahamScanConvexHull = (arr, start, end) => {
+		const ai = __min(arr, start, end, fnCmpPoints).index
+		const a = arr[ai]
+
+		__map(arr, start, arr, start, end, (b) => {
+			V2.sub.to(ab, b, a)
+			return {
+				point: b,
+				slope: div(ab[1], ab[0]),
+				dist: V2.normSquared(ab),
+			}
 		})
+		__sort(arr, start, end, fnCmpEntries)
 
 		const second = start + 1
 		let readIndex = second
 		let writeIndex = second
-		let obj
+		let entry
 		let b
-		let ab = new Array(2)
-		do {
-			obj = arr[readIndex++]
-			b = obj.point
+		for (;;) {
+			entry = arr[readIndex++]
+			b = entry.point
 			V2.sub.to(ab, b, a)
-		} while (V2.eq(ab, ORIGIN))
+			if (V2.neq(ab, ORIGIN)) { break }
+			if (readIndex === end) {
+				__map(arr, start, arr, start, writeIndex, getPoint)
+				return null
+			}
+		}
 
 		arr[start].incoming = null
 
-		obj = arr[writeIndex++]
-		obj.point = b
-		obj.incoming = V2.clone(ab)
+		entry = arr[writeIndex++]
+		entry.point = b
+		entry.incoming = V2.clone(ab)
 
-		const bc = new Array(2)
 		while (readIndex !== end) {
 			const c = arr[readIndex++].point
 			V2.sub.to(bc, c, b)
@@ -66,20 +85,19 @@ const defineFor = memoize((Domain) => {
 				V2.copy(ab, incoming)
 			}
 
-			obj = arr[writeIndex++]
-			obj.point = c
-			obj.incoming = V2.clone(bc)
+			entry = arr[writeIndex++]
+			entry.point = c
+			entry.incoming = V2.clone(bc)
 
 			b = c
 			V2.copy(ab, bc)
 		}
 
+		__map(arr, start, arr, start, writeIndex, getPoint)
 		const hullLength = writeIndex - start
-		if (hullLength < 3) { return null }
-
-		__map(arr, start, arr, start, writeIndex, ({ point }) => point)
-		return hullLength
+		return hullLength < 3 ? null : hullLength
 	}
+
 
 	const grahamScanConvexHull$$$ = (points) => {
 		const { length } = points
@@ -96,6 +114,7 @@ const defineFor = memoize((Domain) => {
 	}
 
 	grahamScanConvexHull.$$$ = grahamScanConvexHull$$$
+
 
 	return {
 		__grahamScanConvexHull,
