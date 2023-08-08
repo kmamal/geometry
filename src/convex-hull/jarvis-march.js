@@ -1,6 +1,7 @@
 const { memoize } = require('@kmamal/util/function/memoize')
 const { __min } = require('@kmamal/util/array/min')
 
+const ab = new Array(2)
 const bc = new Array(2)
 const bp = new Array(2)
 
@@ -18,24 +19,28 @@ const defineFor = memoize((Domain) => {
 
 
 	const __jarvisMarchConvexHull = (dst, dstStart, src, srcStart, srcEnd) => {
-		const ai = __min(src, srcStart, srcEnd, fnCmpPoints).index
-		const a = src[ai]
+		if (srcEnd - srcStart < 3) { return null }
+
+		const fi = __min(src, srcStart, srcEnd, fnCmpPoints).index
+		const f = src[fi]
 
 		let writeIndex = dstStart
-		dst[writeIndex++] = a
+		dst[writeIndex++] = f
 
-		const ab = UP
-		let b = a
+		let ai = fi
+		let b = f
+		let bi = fi
+		V2.copy(ab, UP)
 		let c
+		let ci
 
 		for (;;) {
 			let minAngle = PInfinity
 			let bcNorm = NInfinity
 
-			let readIndex = srcStart
-			while (readIndex !== srcEnd) {
-				const p = src[readIndex++]
-				if (V2.eq(p, b)) { continue }
+			for (let i = srcStart; i < srcEnd; i++) {
+				if (i === ai || i === bi) { continue }
+				const p = src[i]
 
 				V2.sub.to(bp, p, b)
 				const angle = V2.angle2(bp, ab)
@@ -46,14 +51,17 @@ const defineFor = memoize((Domain) => {
 
 				minAngle = angle
 				c = p
+				ci = i
 				V2.copy(bc, bp)
 				bcNorm = bpNorm
 			}
 
-			if (V2.eq(c, a)) { break }
+			if (V2.eq(c, f)) { break }
 			dst[writeIndex++] = c
 
+			ai = bi
 			b = c
+			bi = ci
 			V2.copy(ab, bc)
 		}
 
