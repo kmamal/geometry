@@ -11,15 +11,15 @@ const getPoint = (x) => x.point
 
 
 const defineFor = memoize((Domain) => {
-	const { sub, div, eq, lt, isNaN, fromNumber } = Domain
+	const { sub, div, eq, neq, lt, isNaN, fromNumber } = Domain
 	const ZERO = fromNumber(0)
 	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const ORIGIN = V2.fromNumbers(0, 0)
 
 	const fnCmpPoints = (a, b) => {
-		const dx = a[0] - b[0]
-		if (dx !== 0) { return dx }
-		const dy = a[1] - b[1]
+		const dx = sub(a[0], b[0])
+		if (neq(dx, 0)) { return dx }
+		const dy = sub(a[1], b[1])
 		return dy
 	}
 

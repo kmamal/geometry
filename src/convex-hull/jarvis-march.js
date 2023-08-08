@@ -1,25 +1,36 @@
 const { memoize } = require('@kmamal/util/function/memoize')
 const { __min } = require('@kmamal/util/array/min')
 
+const bc = new Array(2)
+const bp = new Array(2)
+
 const defineFor = memoize((Domain) => {
-	const { eq, gt, lte } = Domain
+	const { eq, neq, gt, lte, sub, PInfinity, NInfinity } = Domain
 	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
+	const UP = V2.fromNumbers(0, 1)
+
+	const fnCmpPoints = (a, b) => {
+		const dx = sub(a[0], b[0])
+		if (neq(dx, 0)) { return dx }
+		const dy = sub(a[1], b[1])
+		return dy
+	}
+
 
 	const __jarvisMarchConvexHull = (dst, dstStart, src, srcStart, srcEnd) => {
-		const a = src[__min(src, srcStart, srcEnd, ([ x ]) => x).index]
-		let b = a
-		const ab = [ 0, 1 ]
+		const ai = __min(src, srcStart, srcEnd, fnCmpPoints).index
+		const a = src[ai]
 
 		let writeIndex = dstStart
 		dst[writeIndex++] = a
 
+		const ab = UP
+		let b = a
 		let c
-		const bc = new Array(2)
-		const bp = new Array(2)
 
 		for (;;) {
-			let minAngle = Infinity
-			let bcNorm = -Infinity
+			let minAngle = PInfinity
+			let bcNorm = NInfinity
 
 			let readIndex = srcStart
 			while (readIndex !== srcEnd) {
@@ -47,9 +58,9 @@ const defineFor = memoize((Domain) => {
 		}
 
 		const hullLength = writeIndex - dstStart
-		if (hullLength < 3) { return null }
-		return hullLength
+		return hullLength < 3 ? null : hullLength
 	}
+
 
 	const jarvisMarchConvexHull = (points) => {
 		const { length } = points
