@@ -28,7 +28,7 @@ const defineFor = memoize((Domain) => {
 		if (isNaN(u.slope)) { return 1 }
 		return eq(v.slope, u.slope)
 			? sub(v.dist, u.dist)
-			: sub(v.slope, u.slope)
+			: sub(u.slope, v.slope)
 	}
 
 
@@ -42,6 +42,7 @@ const defineFor = memoize((Domain) => {
 				point: b,
 				slope: div(ab[1], ab[0]),
 				dist: V2.normSquared(ab),
+				incoming: null,
 			}
 		})
 		__sort(arr, start, end, fnCmpEntries)
@@ -61,8 +62,6 @@ const defineFor = memoize((Domain) => {
 				return null
 			}
 		}
-
-		arr[start].incoming = null
 
 		entry = arr[writeIndex++]
 		entry.point = b
