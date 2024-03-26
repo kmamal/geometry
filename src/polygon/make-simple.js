@@ -17,7 +17,7 @@ const defineFor = memoize((Domain) => {
 		return value
 	}
 
-	const { heapifyWith, popWith, addWith } = require('@kmamal/util/array/heap')
+	const { heapifyWith, popWith, addWith } = require('@kmamal/heap')
 	const fnCmpEndpoints = (endpoint1, endpoint2) => {
 		{
 			const { point: { p: p1 } } = endpoint1

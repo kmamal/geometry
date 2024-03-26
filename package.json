@@ -4,7 +4,7 @@
   "description": "geometry",
   "repository": {
     "type": "git",
-    "url": "git@github.com:kmamal/geometry.git"
+    "url": "git+ssh://git@github.com:kmamal/geometry.git"
   },
   "license": "MIT",
   "scripts": {
@@ -12,13 +12,13 @@
     "update-exports": "node ./scripts/update-exports.mjs"
   },
   "dependencies": {
-    "@kmamal/heap": "^0.0.7",
+    "@kmamal/heap": "^0.0.8",
     "@kmamal/linear-algebra": "^0.0.5",
-    "@kmamal/util": "^0.1.13"
+    "@kmamal/util": "^0.2.0"
   },
   "devDependencies": {
     "@kmamal/numbers": "^0.0.4",
-    "@kmamal/testing": "^0.0.24"
+    "@kmamal/testing": "^0.0.30"
   },
   "exports": {
     "./closest-pair": "./src/closest-pair.js",
