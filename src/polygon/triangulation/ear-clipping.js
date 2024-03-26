@@ -1,5 +1,5 @@
 const { memoize } = require('@kmamal/util/function/memoize')
-const { binarySearch } = require('@kmamal/util/array/search/binary')
+const { binarySearch } = require('@kmamal/util/array/searching/binary')
 
 const defineFor = memoize((Domain) => {
 	const { isInteriorEdge } = require('../is-interior-edge').defineFor(Domain)
