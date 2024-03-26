@@ -2,7 +2,6 @@ const { memoize } = require('@kmamal/util/function/memoize')
 const { __min } = require('@kmamal/util/array/min')
 const { __map } = require('@kmamal/util/array/map')
 const { __sort } = require('@kmamal/util/array/sort')
-const { clone } = require('@kmamal/util/array/clone')
 
 const ab = new Array(2)
 const bc = new Array(2)
@@ -108,7 +107,7 @@ const defineFor = memoize((Domain) => {
 	}
 
 	const grahamScanConvexHull = (points) => {
-		const res = clone(points)
+		const res = Array.from(points)
 		return grahamScanConvexHull$$$(res)
 	}
 

@@ -1,5 +1,4 @@
 const { memoize } = require('@kmamal/util/function/memoize')
-const { clone } = require('@kmamal/util/array/clone')
 const { map } = require('@kmamal/util/array/map')
 const { sortBy } = require('@kmamal/util/array/sort')
 
@@ -13,7 +12,7 @@ const defineFor = memoize((Domain) => {
 		const { length } = _points
 		if (length < 3) { return null }
 
-		const points = clone(_points)
+		const points = Array.from(_points)
 		sortBy.$$$(points, ([ x ]) => x)
 
 		let a = points[0]

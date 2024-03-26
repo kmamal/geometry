@@ -1,11 +1,9 @@
 const { memoize } = require('@kmamal/util/function/memoize')
-const { clone } = require('@kmamal/util/array/clone')
 const { swap } = require('@kmamal/util/array/swap')
 
 const defineFor = memoize((Domain) => {
 	const { lt, gt, PInfinity, NInfinity, fromNumber } = Domain
 	const ZERO = fromNumber(0)
-	const V2 = require('@kmamal/linear-algebra/vec2').defineFor(Domain)
 	const SDF = require('../sdf').defineFor(Domain)
 
 	const __quickhullConvexHull = (arr, _start, _end) => {
@@ -197,7 +195,7 @@ const defineFor = memoize((Domain) => {
 	const quickhullConvexHull = (points) => {
 		const { length } = points
 		if (length < 3) { return null }
-		const res = clone(points)
+		const res = Array.from(points)
 		const n = __quickhullConvexHull(res, 0, points.length)
 		if (n === null) { return null }
 		res.length = n

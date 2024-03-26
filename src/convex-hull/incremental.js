@@ -1,6 +1,5 @@
 const { memoize } = require('@kmamal/util/function/memoize')
 const { __copyInplace } = require('@kmamal/util/array/copy')
-const { clone } = require('@kmamal/util/array/clone')
 
 const defineFor = memoize((Domain) => {
 	const { eq, gt, lt, gte, lte, fromNumber } = Domain
@@ -65,7 +64,7 @@ const defineFor = memoize((Domain) => {
 	}
 
 	const incrementConvexHull = (hull, point) => {
-		const res = clone(hull)
+		const res = Array.from(hull)
 		return incrementConvexHull$$$(res, point)
 	}
 
