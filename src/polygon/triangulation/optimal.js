@@ -1,5 +1,5 @@
 const { memoize } = require('@kmamal/util/function/memoize')
-const { UpperRight } = require('@kmamal/util/array/triangular')
+const { UpperRight } = require('@kmamal/triangular')
 const { point } = require('../point')
 
 const defineFor = memoize((Domain) => {
